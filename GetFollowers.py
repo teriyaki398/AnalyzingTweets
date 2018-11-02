@@ -43,6 +43,8 @@ def GetFollowres(next):
 
 dic = GetFollowres(0)
 
+ans = []
+
 while True:
     sleep(65)
     print(len(dic["users"]), "users")
@@ -52,12 +54,15 @@ while True:
         print(i["name"])
         print("@" + i["screen_name"])
 
-
-    with open("../Output/"+USER_ID+"-Followers", "a") as f:
-        for i in dic["users"]:
-            f.write(i["screen_name"] + "\n")
+    for i in dic["users"]:
+        if i not in ans:
+            ans.append(i)
 
     if dic["next_cursor"] == 0:
         break
     else:
         dic = GetFollowres(dic["next_cursor"])
+
+with open("../Output/"+USER_ID+"-Followers", "a") as f:
+    for i in ans:
+        f.write(i["screen_name"] + "\n")
