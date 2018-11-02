@@ -8,7 +8,7 @@ with open("../Output/Statistics", "r") as f:
 statis = [i.split(" ") for i in statis]
 
 # remove 0 ~ FILTER 
-FILTER = 4
+FILTER = 0
 
 data = []
 label = []

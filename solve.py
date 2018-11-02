@@ -41,7 +41,6 @@ def retNextMaxID(dic):
     for i in TWEETS:
         if date > i[1]:
             return i[0]
-            break
     return ""
 
 
@@ -54,7 +53,7 @@ def getFav(name, max_id):
     if max_id == -1:
         params = {"screen_name": name, "count": 200}
     else:
-        params = {"screen_name": name, "max_id": id, "count": 200}
+        params = {"screen_name": name, "max_id": max_id, "count": 200}
     # request
     res = twitter.get(url, params=params)
     
@@ -79,8 +78,9 @@ def writeAns(out):
 
 
 for search_user in tqdm(followers):
+    sleep(15)
     fav_cnt = getFavoritesCount(search_user)
-    print("search " + search_user)
+    print("search @" + search_user)
 
     dic = getFav(search_user, -1)
 
@@ -94,9 +94,9 @@ for search_user in tqdm(followers):
         print("Private Account...")
         print search_user, 0
         writeAns([search_user, 0])
-        sleep(15)
         continue
-
+    
+    # sccess to read
     ans = []
     for i in dic:
         if i["user"]["screen_name"] == USER_ID:
@@ -108,7 +108,9 @@ for search_user in tqdm(followers):
             if ent not in ans:
                 ans.append(ent)
 
+    # continue to search
     max_id = retNextMaxID(dic)
+
     if max_id == "":
         print("Next is none...")
         print search_user, len(ans)
@@ -123,20 +125,16 @@ for search_user in tqdm(followers):
             if i["user"]["screen_name"] == USER_ID:
                 ent = i["id"]
                 if ent not in ans:
-                    print(i["text"])
-                    print("-")
+                    print "-"
+                    print i["user"]["name"]
+                    print i["text"]
+                    print "-"
                     ans.append(ent)
-        
-        try:
-            max_id = retNextMaxID(dic)
-        except:
-            print "max_id exception"
 
-            l = [i[0] for i in TWEETS]
-            ind = l.index(max_id)
-            max_id = l[ind + 1]
-
+        max_id = retNextMaxID(dic)
         if max_id == "":
+            print "Date Limit..."
             break
 
     print search_user, len(ans)
+    writeAns([search_user, len(ans)])
