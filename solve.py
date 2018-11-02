@@ -80,7 +80,7 @@ def writeAns(out):
 for search_user in tqdm(followers):
     sleep(15)
     fav_cnt = getFavoritesCount(search_user)
-    print("search @" + search_user)
+    print("\nsearch @" + search_user)
 
     dic = getFav(search_user, -1)
 
@@ -91,7 +91,7 @@ for search_user in tqdm(followers):
     except:
         flag = False
     if flag == False:
-        print("Private Account...")
+        print("\nPrivate Account...")
         print search_user, 0
         writeAns([search_user, 0])
         continue
@@ -142,7 +142,7 @@ for search_user in tqdm(followers):
             max_id = retNextMaxID(dic)
         
         if max_id == "":
-            print "Date Limit..."
+            print "\nDate Limit..."
             break
 
     print search_user, len(ans)

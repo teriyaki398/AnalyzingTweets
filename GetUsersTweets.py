@@ -28,10 +28,10 @@ def getUsersTweets(scree_name, max_id):
 
     if max_id == -1:
         # request parameters
-        params = {  "user_id": USER_ID,
+        params = {  "scree_name": USER_ID,
                     "count": 200}
     else:
-        params = {  "user_id": USER_ID,
+        params = {  "scree_name": USER_ID,
                     "max_id": max_id,
                     "count": 200}
     

@@ -31,7 +31,7 @@ legends = ["%3d : @%s" % (data[i], label[i]) for i in range(len(label))]
 plt.style.use("ggplot")
 plt.rcParams.update({"font.size": 15})
 
-size = (10,7)
+size = (10,8)
 temp = cm.Pastel1(np.arange(9))
 col = []
 for i in range(len(data)):

@@ -24,7 +24,8 @@
 1. ../Output/AnalyzingTweets ファイルに
 user_id [id]
 
-という感じでTwitterのIDを入力する
+という感じでTwitterのIDを指定．
+このIDを元にのちの作業が行われる
 
 2. GetFollowers.py を実行し，../Output/[ID]-Followres ファイルを作成
 
