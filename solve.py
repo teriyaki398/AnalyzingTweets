@@ -99,9 +99,11 @@ for search_user in tqdm(followers):
     # sccess to read
     ans = []
     for i in dic:
+        if retDateNum(i) < "201804010000": break
         if i["user"]["screen_name"] == USER_ID:
             ent = i["id"]
             print "-"
+            print i["created_at"]
             print i["user"]["name"]
             print i["text"]
             print "-"
@@ -122,16 +124,23 @@ for search_user in tqdm(followers):
 
         dic = getFav(search_user, max_id)
         for i in dic:
+            if retDateNum(i) < "201804010000": break
             if i["user"]["screen_name"] == USER_ID:
                 ent = i["id"]
                 if ent not in ans:
                     print "-"
+                    print i["created_at"]
                     print i["user"]["name"]
                     print i["text"]
                     print "-"
                     ans.append(ent)
-
-        max_id = retNextMaxID(dic)
+        
+        if len(dic) == 0:
+            "search error"
+            break
+        else:
+            max_id = retNextMaxID(dic)
+        
         if max_id == "":
             print "Date Limit..."
             break
