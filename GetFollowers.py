@@ -44,7 +44,7 @@ def GetFollowres(next):
 dic = GetFollowres(0)
 
 while True:
-    sleep(20)
+    sleep(65)
     print(len(dic["users"]), "users")
 
     for i in dic["users"]:

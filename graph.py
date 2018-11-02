@@ -3,12 +3,15 @@ import matplotlib.cm as cm
 import numpy as np
 import random
 
-with open("../Output/Statistics", "r") as f:
+with open("../Output/AnalyzingTweets", "r") as f:
+    USER_ID = f.read().split(" ")[1][:-1]
+
+with open("../Output/"+USER_ID+"-Statistics", "r") as f:
     statis = f.read().split("\n")[:-1]
 statis = [i.split(" ") for i in statis]
 
 # remove 0 ~ FILTER 
-FILTER = 4
+FILTER = 0
 
 data = []
 label = []
@@ -41,6 +44,6 @@ plt.pie(data, colors=col, counterclock=False, startangle=90, autopct=lambda p:'{
 plt.subplots_adjust(left=0, right=0.7)
 plt.legend(legends, fancybox=True, loc="center left", bbox_to_anchor=(0.9,0.5))
 plt.axis("equal")
-plt.savefig("../Output/figure.png", bbox_inches="tight", pad_inches=0.05)
+plt.savefig("../Output/"+USER_ID+"-figure.png", bbox_inches="tight", pad_inches=0.05)
 
 
