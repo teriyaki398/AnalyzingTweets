@@ -16,6 +16,11 @@ for i in TOKEN:
 print(USER_ID)
 
 
+def WriteAns(ent):
+    with open("../Output/"+USER_ID+"-Followers", "a") as f:
+        f.write(ent["screen_name"] + "\n")
+
+
 def GetFollowres(next):
 
     twitter = OAuth1Session(TOKEN[0][1], TOKEN[1][1], TOKEN[2][1], TOKEN[3][1])
@@ -31,7 +36,7 @@ def GetFollowres(next):
     else:
         params = {"screen_name": USER_ID,
                     "count":200,
-                    "next_cursor": next}
+                    "cursor": next}
 
     # rewuest
     res = twitter.get(url, params=params)
@@ -45,7 +50,7 @@ dic = GetFollowres(0)
 
 ans = []
 
-while True:
+while len(ans) < 410:
     sleep(65)
     print(len(dic["users"]), "users")
 
@@ -55,14 +60,13 @@ while True:
         print("@" + i["screen_name"])
 
     for i in dic["users"]:
-        if i not in ans:
-            ans.append(i)
+        if i["screen_name"] not in ans:
+            print(i["screen_name"])
+            print("-")
+            WriteAns(i)
+            ans.append(i["screen_name"])
 
     if dic["next_cursor"] == 0:
         break
-    else:
-        dic = GetFollowres(dic["next_cursor"])
 
-with open("../Output/"+USER_ID+"-Followers", "a") as f:
-    for i in ans:
-        f.write(i["screen_name"] + "\n")
+    dic = GetFollowres(dic["next_cursor"])
