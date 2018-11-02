@@ -11,10 +11,10 @@ with open("../.token/TwitterToken", "r") as f:
 with open("../Output/AnalyzingTweets", "r") as f:
     USER_ID = f.read().split(" ")[1][:-1]
 
-with open("../Output/Followers", "r") as f:
+with open("../Output/"+USER_ID+"-Followers", "r") as f:
     followers = f.read().split("\n")[:-1]
 
-with open("../Output/Statistics", "r") as f:
+with open("../Output/"+USER_ID+"-Statistics", "r") as f:
     statis = f.read().split("\n")[:-1]
 # remove searched followers
 for i in statis:
@@ -22,7 +22,7 @@ for i in statis:
     if name[0] in followers:
         followers.remove(name[0])
 
-with open("../Output/Users_Tweets", "r") as f:
+with open("../Output/"+USER_ID+"-TWEETS", "r") as f:
     TWEETS = f.read().split("\n")[:-1]
     TWEETS = [i.split(" ") for i in TWEETS]
 
@@ -72,7 +72,7 @@ def getFavoritesCount(name):
     return dic["favourites_count"]
 
 def writeAns(out):
-    with open("../Output/Statistics", "a") as f:
+    with open("../Output/"+USER_ID+"-Statistics", "a") as f:
         f.write(out[0] + " " + str(out[1]) + "\n")
     
 
@@ -99,7 +99,7 @@ for search_user in tqdm(followers):
     # sccess to read
     ans = []
     for i in dic:
-        if retDateNum(i) < "201804010000": break
+        if retDateNum(i) < "201804010000": continue
         if i["user"]["screen_name"] == USER_ID:
             ent = i["id"]
             print "-"
@@ -124,7 +124,7 @@ for search_user in tqdm(followers):
 
         dic = getFav(search_user, max_id)
         for i in dic:
-            if retDateNum(i) < "201804010000": break
+            if retDateNum(i) < "201804010000": continue
             if i["user"]["screen_name"] == USER_ID:
                 ent = i["id"]
                 if ent not in ans:

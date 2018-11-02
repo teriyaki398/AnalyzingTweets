@@ -1,5 +1,6 @@
 import json
 from requests_oauthlib import OAuth1Session
+from time import sleep
 
 
 with open("../.token/TwitterToken") as f:
@@ -14,29 +15,49 @@ for i in TOKEN:
 
 print(USER_ID)
 
-twitter = OAuth1Session(TOKEN[0][1], TOKEN[1][1], TOKEN[2][1], TOKEN[3][1])
 
-# request url
-url = "https://api.twitter.com/1.1/followers/list.json"
+def GetFollowres(next):
 
-# request parameters
-params = {  "user_id": USER_ID,
-            "count": 200}
+    twitter = OAuth1Session(TOKEN[0][1], TOKEN[1][1], TOKEN[2][1], TOKEN[3][1])
 
-# rewuest
-res = twitter.get(url, params=params)
+    # request url
+    url = "https://api.twitter.com/1.1/followers/list.json"
 
-# json -> dict
-dic = json.loads(res.text)
+    if next == 0:
+        # request parameters
+        params = {  "screen_name": USER_ID,
+                    "count": 200,
+                }
+    else:
+        params = {"screen_name": USER_ID,
+                    "count":200,
+                    "next_cursor": next}
 
-print(len(dic["users"]), "users")
+    # rewuest
+    res = twitter.get(url, params=params)
 
-for i in dic["users"]:
-    print("-")
-    print(i["name"])
-    print("@" + i["screen_name"])
+    # json -> dict
+    dic = json.loads(res.text)
 
+    return dic
 
-with open("../.AnalyzingTweets/Followers", "w") as f:
+dic = GetFollowres(0)
+
+while True:
+    sleep(20)
+    print(len(dic["users"]), "users")
+
     for i in dic["users"]:
-        f.write(i["screen_name"] + "\n")
+        print("-")
+        print(i["name"])
+        print("@" + i["screen_name"])
+
+
+    with open("../Output/"+USER_ID+"-Followers", "a") as f:
+        for i in dic["users"]:
+            f.write(i["screen_name"] + "\n")
+
+    if dic["next_cursor"] == 0:
+        break
+    else:
+        dic = GetFollowres(dic["next_cursor"])

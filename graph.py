@@ -8,7 +8,7 @@ with open("../Output/Statistics", "r") as f:
 statis = [i.split(" ") for i in statis]
 
 # remove 0 ~ FILTER 
-FILTER = 0
+FILTER = 4
 
 data = []
 label = []
@@ -28,7 +28,7 @@ legends = ["%3d : @%s" % (data[i], label[i]) for i in range(len(label))]
 plt.style.use("ggplot")
 plt.rcParams.update({"font.size": 15})
 
-size = (14,9)
+size = (10,7)
 temp = cm.Pastel1(np.arange(9))
 col = []
 for i in range(len(data)):

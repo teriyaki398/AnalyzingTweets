@@ -52,6 +52,8 @@ max_id = dic[-1]["id"]
 while True:
     sleep(1.1)
 
+    print(dic[-1]["id"])
+    print(len(dic))
     dic = getUsersTweets(USER_ID, max_id)
 
     for i in dic:
@@ -64,3 +66,7 @@ while True:
         break
     max_id = dic[-1]["id"]
     
+
+with open("../Output/" + USER_ID + "-TWEETS", "a") as f:
+    for i in lis:
+        f.write(str(i[0]) + " " + i[1] + "\n")
