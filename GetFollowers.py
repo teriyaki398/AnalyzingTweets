@@ -6,7 +6,7 @@ with open("../.token/TwitterToken") as f:
     TOKEN = f.read().split("\n")
     TOKEN = list(map(lambda x: x.split(" "), TOKEN))[:-1]
 
-with open("../.AnalyzingTweets/AnalyzingTweets") as f:
+with open("../Output/AnalyzingTweets") as f:
     USER_ID = f.read().split(" ")[1][:-1]
 
 for i in TOKEN:
