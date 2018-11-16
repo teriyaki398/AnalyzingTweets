@@ -9,5 +9,3 @@ def getUserIDList(post_id):
         return unique_ids
     except urllib2.HTTPError:
         return False
-
-
