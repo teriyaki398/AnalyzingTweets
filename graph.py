@@ -24,17 +24,16 @@ res = twitter.aggregateID(filter)
 statis = [[twitter.showUser(id), res[id]] for id in res]
 statis = sorted(statis, key=lambda x: x[1])
 
-# データとラベルのリストを作成
-# label = []
-# data = []
-# for i in statis:
-#     if i[1] <= filter:
-#         continue
-#     else:
-#         label.append(i[0])
-#         data.append(i[1])
-label = [i[0] for i in statis]
-data = [i[1] for i in statis]
+# label と data を作成する
+label = []
+data = []
+for i in statis:
+    # 自分が含まれているならば取り除く
+    if i[0] == screen_name:
+        continue
+    else:
+        label.append(i[0])
+        data.append(i[1])
 
 # 降順に直す
 label = label[::-1]

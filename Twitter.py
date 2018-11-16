@@ -16,9 +16,6 @@ class Twitter:
         対象となるユーザーの screen_name
     """
 
-    # {user_id : screen_name} の辞書
-    memo = {}
-
     def __init__(self, screen_name):
         """
         各情報の初期化
@@ -132,11 +129,6 @@ class Twitter:
         id : string
             ユーザーID
         """
-
-        # すでに memo 内にあるならそれを返す
-        if id in self.memo:
-            return self.memo[id]
-
         # 一秒待つ
         sleep(1)
 
@@ -157,7 +149,6 @@ class Twitter:
         except:
             return False
         
-        self.memo[id] = dic["screen_name"]
         return dic["screen_name"]
 
 
@@ -192,7 +183,7 @@ class Twitter:
         # ついでに自分も除外する
         ans = {}
         for i in user_ids:
-            if user_ids[i] <= filter or i == self.screen_name:
+            if user_ids[i] <= filter:
                 continue
             else:
                 ans[i] = user_ids[i]
