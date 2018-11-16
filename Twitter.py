@@ -192,8 +192,11 @@ class Twitter:
         if self.screen_name in user_ids:
             user_ids.pop(self.screen_name)
 
-        # フィルター以下のいいねすうのデータは除外する
+        # フィルター以下のいいね数のデータは除外する
+        ans = {}
         for i in user_ids:
             if user_ids[i] <= filter:
-                user_ids.pop(i)
-        return user_ids
+                continue
+            else:
+                ans[i] = user_ids[i]
+        return ans

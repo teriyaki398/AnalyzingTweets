@@ -1,40 +1,23 @@
 # Analyzing Tweets
-公開アカウントのいいねだけでいいならfaster.pyの方法でいける．
+自分のツイートがが今まで誰にどれくらい"いいね"されているかの統計をとるスクリプト
 
-鍵垢のいいねもみたいなら自分のアカウントからAPI Keyを取得して，正当な方法で行う必要がある．
-ただしめっちゃ時間かかる．
+鍵垢のいいねは取得できない。
 
-#### solve.py
-自分のツイートにいいねしたアカウントの統計をとる
+# 準備
+調べたいアカウントの**screen name**を調べる。
 
-対象アカウントは自分のフォロワーのみ  
-アカウントのリストはGetFollowers.pyで出力される
-
-#### GetFollowers.py
-自分のフォロワーリストを出力する
+screen name とは @XXX_YYY みたいな感じのアカウント名のこと。
 
 
-#### GetFavoritesList.py
-いいねしたツイートのツイート主を取得する
+# グラフを描画する
+```python
+python graph.py
+```
 
-#### GetUsersTweets.py
-ユーザーの投稿したツイートを取得する
+で実行するだけ。
 
-#### graph.py
-取得した統計をグラフ化する
+screen_name : [調べたいscreen name]
+filter : [除外したいいいね数の最大値]
 
+0 ~ filter を除外したアカウントの統計を円グラフで描画する。
 
-# 使い方
-1. ../Output/AnalyzingTweets ファイルに
-user_id [id]
-
-という感じでTwitterのIDを指定．
-このIDを元にのちの作業が行われる
-
-2. GetFollowers.py を実行し，../Output/[ID]-Followres ファイルを作成
-
-3. GetUsersTweets.py を実行し，../Output[ID]-TWEETS を作成
-
-4. solve.py を実行すると，[ID]-Statisticsに結果が格納されていく
-
-5. graph.py で結果を描画する
