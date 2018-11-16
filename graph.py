@@ -58,6 +58,6 @@ plt.pie(data, colors=col, counterclock=False, startangle=90, autopct=lambda p:'{
 plt.subplots_adjust(left=0, right=0.7)
 plt.legend(legends, fancybox=True, loc="center left", bbox_to_anchor=(0.9,0.5))
 plt.axis("equal")
-plt.savefig("./"+user_name+"-figure.png", bbox_inches="tight", pad_inches=0.05)
+plt.savefig("./"+screen_name+"-figure.png", bbox_inches="tight", pad_inches=0.05)
 
 

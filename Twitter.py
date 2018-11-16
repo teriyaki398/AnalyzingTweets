@@ -188,14 +188,11 @@ class Twitter:
                 else:
                     user_ids[i] = 1
 
-        # もし自分自身があるなら除外する
-        if self.screen_name in user_ids:
-            user_ids.pop(self.screen_name)
-
         # フィルター以下のいいね数のデータは除外する
+        # ついでに自分も除外する
         ans = {}
         for i in user_ids:
-            if user_ids[i] <= filter:
+            if user_ids[i] <= filter or i == self.screen_name:
                 continue
             else:
                 ans[i] = user_ids[i]
