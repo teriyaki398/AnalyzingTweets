@@ -1,30 +1,44 @@
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
-import random
+from Twitter import Twitter
 
-with open("../Output/AnalyzingTweets", "r") as f:
-    USER_ID = f.read().split(" ")[1][:-1]
 
-with open("../Output/"+USER_ID+"-Statistics", "r") as f:
-    statis = f.read().split("\n")[:-1]
-statis = [i.split(" ") for i in statis]
+"""
+screen name (@XXXXX ってやつ) を入力すると
+円グラフが表示されるようにしたい
+"""
 
-# remove 0 ~ FILTER 
-FILTER = 0
+# 対象のscreen_name
+# filter : 0 ~ filter までの値は取り除く
+screen_name = input("screen name : ")
+filter = int(input("filter : "))
 
-data = []
-label = []
-# sorted by the number of favorites
-statis = sorted(statis, key=lambda x: int(x[1]))
-for i in statis:
-    if int(i[1]) <= FILTER:
-        continue
-    else:
-        data.append(int(i[1]))
-        label.append(i[0])
-data = data[::-1]
+# Twitter.aggregateID()を実行。
+# {ユーザーid: いいねした数} のリストが返ってくる
+twitter = Twitter(screen_name)
+res = twitter.aggregateID(filter)
+
+# ユーザーid -> screen_name に変換
+# いいねの数で順番にソートする
+statis = [[twitter.showUser(id), res[id]] for id in res]
+statis = sorted(statis, key=lambda x: x[1])
+
+# データとラベルのリストを作成
+# label = []
+# data = []
+# for i in statis:
+#     if i[1] <= filter:
+#         continue
+#     else:
+#         label.append(i[0])
+#         data.append(i[1])
+label = [i[0] for i in statis]
+data = [i[1] for i in statis]
+
+# 降順に直す
 label = label[::-1]
+data = data[::-1]
 
 legends = ["%3d : @%s" % (data[i], label[i]) for i in range(len(label))]
 
@@ -44,6 +58,6 @@ plt.pie(data, colors=col, counterclock=False, startangle=90, autopct=lambda p:'{
 plt.subplots_adjust(left=0, right=0.7)
 plt.legend(legends, fancybox=True, loc="center left", bbox_to_anchor=(0.9,0.5))
 plt.axis("equal")
-plt.savefig("../Output/"+USER_ID+"-figure.png", bbox_inches="tight", pad_inches=0.05)
+plt.savefig("./"+user_name+"-figure.png", bbox_inches="tight", pad_inches=0.05)
 
 
