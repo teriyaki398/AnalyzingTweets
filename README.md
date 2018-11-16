@@ -8,7 +8,7 @@ Twitter API ではなぜか特定のツイートに対して誰がいいねし�
 3. Twitter API でidに対応する screen_name を調べる
 4. matplotlib で描画
 
-結局ツイート毎に1sec 待機するのでかなり時間はかかる。
+結局、1 ツイート毎に1sec 待機するのでかなり時間はかかる。
 
 # 準備
 調べたいアカウントの**screen name**を調べる。

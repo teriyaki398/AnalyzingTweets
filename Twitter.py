@@ -93,7 +93,7 @@ class Twitter:
 
             # もしmax_id が前回のものと同じなら最後まで読んだことになる
             # その時は break する
-            if max_id == dic[-1]["id"] or cnt > 1:
+            if max_id == dic[-1]["id"]:
                 break
             # そうでない場合は max_id を更新して次のループへ
             else:
@@ -173,6 +173,13 @@ class Twitter:
         # ツイートid 一つずつ検索してく
         for id in tqdm(ids):
             lis = self.getUserIDList(id)
+            # もし error が返ってきたら。
+            if lis == False:
+                sleep(10)
+                lis = self.getUserIDList(id)
+            # それでもダメなら諦めて次のやつに行く
+            if lis == False:
+                continue
             for i in lis:
                 if i in user_ids:
                     user_ids[i] += 1
